@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/all.dart';
-import 'file:///C:/Users/Jakes/My%20Projects/tera_launcher/lib/screens/launcher.dart';
 import 'package:tera_launcher/main_page.dart';
 
 void main() {

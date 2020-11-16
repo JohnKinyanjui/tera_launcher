@@ -36,6 +36,11 @@ dependencies:
   feather_icons_flutter: ^4.7.4
   ionicons: ^0.0.3
   loading: ^1.0.2
+  iconpacks: ^0.0.3
+  palette_generator: ^0.2.3
+  bloc: ^6.1.0
+  flutter_bloc: ^6.1.1
+
 
 
 

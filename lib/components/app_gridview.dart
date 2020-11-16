@@ -1,10 +1,8 @@
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
-import 'package:tera_launcher/components/app_category.dart';
 import 'package:tera_launcher/components/app_item.dart';
 
 class AppGridview extends StatefulWidget {
-
   final List<Application> apps;
   final ApplicationCategory appCategory;
 
@@ -16,38 +14,88 @@ class AppGridview extends StatefulWidget {
 
 class _AppGridviewState extends State<AppGridview> {
   List<Application> all_apps = [];
-
-  void get_apps(){
-   print("gettings apps");
-    for(int i =0; i<widget.apps.length; i++){
-      print("Appname ${widget.apps[i].appName} AppCategory ${widget.apps[i].category}" );
-      if (widget.apps[i].category == widget.appCategory) {
-        setState(() {
-          all_apps.add(widget.apps[i]);
-        });
+  List<Application> social_apps = [];
+  List<Application> productivity_apps = [];
+  List<Application> games_apps = [];
+  List<Application> images_apps = [];
+  List<Application> videos_apps = [];
+  List<Application> audios_apps = [];
+  List<Application> maps_apps = [];
+  List<Application> news_apps = [];
+  List<Application> other_apps = [];
+  void get_apps() {
+    for (int i = 0; i < widget.apps.length; i++) {
+      if (widget.apps[i].packageName == "com.android.contacts") {
+        social_apps.add(widget.apps[i]);
+      } else if (widget.apps[i].appName == "Phone") {
+        social_apps.add(widget.apps[i]);
+      } else if (widget.apps[i].packageName == "com.google.android.apps.maps") {
+        maps_apps.add(widget.apps[i]);
+      } else if (widget.apps[i].packageName == "com.google.earth") {
+        maps_apps.add(widget.apps[i]);
+      } else if (widget.apps[i].category == ApplicationCategory.social) {
+        social_apps.add(widget.apps[i]);
+      } else if (widget.apps[i].category == ApplicationCategory.productivity) {
+        productivity_apps.add(widget.apps[i]);
+      } else if (widget.apps[i].category == ApplicationCategory.game) {
+        games_apps.add(widget.apps[i]);
+      } else if (widget.apps[i].category == ApplicationCategory.image) {
+        images_apps.add(widget.apps[i]);
+      } else if (widget.apps[i].category == ApplicationCategory.video) {
+        videos_apps.add(widget.apps[i]);
+      } else if (widget.apps[i].category == ApplicationCategory.audio) {
+        audios_apps.add(widget.apps[i]);
+      } else if (widget.apps[i].category == ApplicationCategory.maps) {
+        maps_apps.add(widget.apps[i]);
+      } else if (widget.apps[i].category == ApplicationCategory.news) {
+        news_apps.add(widget.apps[i]);
+      } else if (widget.apps[i].category == ApplicationCategory.undefined) {
+        other_apps.add(widget.apps[i]);
       }
+    }
+  }
+
+  List<Application> getApplications(ApplicationCategory category) {
+    if (category == ApplicationCategory.social) {
+      return social_apps;
+    } else if (category == ApplicationCategory.productivity) {
+      return productivity_apps;
+    } else if (category == ApplicationCategory.game) {
+      return games_apps;
+    } else if (category == ApplicationCategory.image) {
+      return images_apps;
+    } else if (category == ApplicationCategory.video) {
+      return videos_apps;
+    } else if (category == ApplicationCategory.audio) {
+      return audios_apps;
+    } else if (category == ApplicationCategory.maps) {
+      return social_apps;
+    } else if (category == ApplicationCategory.news) {
+      return news_apps;
+    } else if (category == ApplicationCategory.undefined) {
+      return other_apps;
     }
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     get_apps();
   }
+
   @override
   Widget build(BuildContext context) {
-
     return GridView.builder(
       shrinkWrap: true,
-      physics:const NeverScrollableScrollPhysics() ,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
-      itemCount: all_apps.length,
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate:
+          SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
+      itemCount: getApplications(widget.appCategory).length,
       itemBuilder: (BuildContext context, int index) {
         return AppItem(
-         app: all_apps[index],
-
+          app: getApplications(widget.appCategory)[index],
         );
-      },);
+      },
+    );
   }
 }
