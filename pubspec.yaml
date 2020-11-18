@@ -37,9 +37,11 @@ dependencies:
   ionicons: ^0.0.3
   loading: ^1.0.2
   iconpacks: ^0.0.3
-  palette_generator: ^0.2.3
-  bloc: ^6.1.0
-  flutter_bloc: ^6.1.1
+  moor: ^3.4.0
+  moor_flutter: ^3.1.0
+  provider: ^4.3.2+2
+
+
 
 
 
@@ -48,6 +50,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  moor_generator: ^3.4.0
+  build_runner: ^1.10.4
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

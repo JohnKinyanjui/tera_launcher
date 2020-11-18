@@ -12,14 +12,14 @@ import 'package:tera_launcher/components/app_holder.dart';
 import 'package:tera_launcher/settings/app_state.dart';
 import 'package:tera_launcher/settings/categories.dart';
 
-class AppPage extends StatefulWidget {
-  AppPage({Key key}) : super(key: key);
+class SortedApps extends StatefulWidget {
+  SortedApps({Key key}) : super(key: key);
 
   @override
-  _AppPageState createState() => _AppPageState();
+  _SortedAppsState createState() => _SortedAppsState();
 }
 
-class _AppPageState extends State<AppPage> {
+class _SortedAppsState extends State<SortedApps> {
   PageController controller = PageController();
   int i = 0;
   @override

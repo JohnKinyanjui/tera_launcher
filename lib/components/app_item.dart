@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconpacks/iconpacks.dart';
-import 'package:tera_launcher/settings/dialog_manager.dart';
 
 class AppItem extends StatefulWidget {
   final ApplicationWithIcon app;
@@ -54,20 +53,12 @@ class _AppItemState extends State<AppItem> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => DeviceApps.openApp(widget.app.packageName),
-      onLongPress: () => showAppOptions(
-          context,
-          widget.app.icon,
-          icon,
-          widget.app.appName,
-          widget.app.packageName,
-          widget.app.versionName.toString()),
       child: Column(
         children: [
           Expanded(
             child: icon == null
                 ? Container(
-                    height: 50,
-                    width: 40,
+
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -75,7 +66,6 @@ class _AppItemState extends State<AppItem> {
                       padding: const EdgeInsets.all(4.0),
                       child: Image.memory(
                         widget.app.icon,
-                        fit: BoxFit.cover,
                       ),
                     ),
                   )
