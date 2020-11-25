@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tera_launcher/homescreen_widgets/androne_widget.dart';
 
 class LauncherHome extends StatefulWidget {
   @override
@@ -11,15 +12,7 @@ class _LauncherHomeState extends State<LauncherHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: 30,
-          ),
-        ],
-      ),
+      body: AndroneWidget(),
     );
   }
 }

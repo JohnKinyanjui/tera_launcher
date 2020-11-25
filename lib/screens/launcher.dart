@@ -1,12 +1,14 @@
 import 'dart:ui';
-import 'package:feather_icons_flutter/feather_icons_flutter.dart';
-import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:tera_launcher/components/app_holder.dart';
+import 'package:tera_launcher/components/dock/main_dock.dart';
+import 'package:tera_launcher/settings/MyAppSettings.dart';
 import 'launcher_home.dart';
 import 'launcher_options.dart';
 
 class Launcher extends StatefulWidget {
+  final MyAppSettings settings;
+
+  const Launcher({Key key, this.settings}) : super(key: key);
   @override
   _LauncherState createState() => _LauncherState();
 }
@@ -20,16 +22,16 @@ class _LauncherState extends State<Launcher> {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
-    Color itemColor = Colors.transparent;
     return Scaffold(
       extendBody: true,
       drawerScrimColor: Colors.transparent,
       backgroundColor: Colors.transparent,
       body: Column(
         children: [
+          SizedBox(height: 40,),
+
           Expanded(
             child: PageView(
               children: [
@@ -38,73 +40,7 @@ class _LauncherState extends State<Launcher> {
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              height: 100,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.2),
-                  borderRadius: BorderRadius.all(Radius.circular(20))),
-              child: Center(
-                child: Container(
-                  height: 60,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Expanded(child: SizedBox()),
-                      AppHolder(
-                        height: 50,
-                        width: 50,
-                        color: itemColor,
-                        child: Center(
-                            child: Icon(
-                          FeatherIcons.phoneCall,
-                          color: Colors.white,
-                        )),
-                      ),
-                      AppHolder(
-                        height: 50,
-                        width: 50,
-                        color: itemColor,
-                        child: Center(
-                            child: Icon(
-                          FeatherIcons.messageSquare,
-                          color: Colors.white,
-                        )),
-                      ),
-                      AppHolder(
-                        height: 50,
-                        width: 50,
-                        color: itemColor,
-                        child: Center(
-                            child: Icon(
-                          FluentSystemIcons.ic_fluent_apps_regular,
-                          color: Colors.white,
-                        )),
-                      ),
-                      AppHolder(
-                        height: 50,
-                        width: 50,
-                        color: itemColor,
-                        child: Center(
-                            child: Icon(
-                          FluentSystemIcons.ic_fluent_apps_regular,
-                          color: Colors.white,
-                        )),
-                      ),
-                      AppHolder(
-                        height: 50,
-                        width: 50,
-                        color: itemColor,
-                      ),
-                      Expanded(child: SizedBox()),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
+         MainDock(settings: widget.settings,)
         ],
       ),
       drawer: BackdropFilter(
@@ -112,7 +48,7 @@ class _LauncherState extends State<Launcher> {
         child: Container(
           height: height,
           width: 300,
-          color: Colors.white.withOpacity(0.2),
+          color: Colors.deepPurpleAccent.withOpacity(0.2),
           child: Column(
             children: [],
           ),

@@ -1,5 +1,6 @@
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
+import 'package:popup_menu/popup_menu.dart';
 import 'package:tera_launcher/components/app_item.dart';
 
 class AppGridview extends StatefulWidget {
@@ -69,7 +70,7 @@ class _AppGridviewState extends State<AppGridview> {
     } else if (category == ApplicationCategory.audio) {
       return audios_apps;
     } else if (category == ApplicationCategory.maps) {
-      return social_apps;
+      return maps_apps;
     } else if (category == ApplicationCategory.news) {
       return news_apps;
     } else if (category == ApplicationCategory.undefined) {
@@ -85,15 +86,21 @@ class _AppGridviewState extends State<AppGridview> {
 
   @override
   Widget build(BuildContext context) {
+    GlobalKey btnKey2 = GlobalKey();
+
     return GridView.builder(
+      cacheExtent: 0,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate:
-          SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
+          SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4, mainAxisSpacing: 4, crossAxisSpacing: 4),
       itemCount: getApplications(widget.appCategory).length,
       itemBuilder: (BuildContext context, int index) {
-        return AppItem(
-          app: getApplications(widget.appCategory)[index],
+        return GestureDetector(
+          child: AppItem(
+            onpress: ()=> DeviceApps.openApp(getApplications(widget.appCategory)[index].packageName),
+            app: getApplications(widget.appCategory)[index],
+          ),
         );
       },
     );

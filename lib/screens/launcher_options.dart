@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class LauncherOptions extends StatefulWidget {
   LauncherOptions({Key key}) : super(key: key);
 
@@ -14,9 +13,7 @@ class _LauncherOptionsState extends State<LauncherOptions> {
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Column(
-        children: [
-
-        ],
+        children: [],
       ),
     );
   }

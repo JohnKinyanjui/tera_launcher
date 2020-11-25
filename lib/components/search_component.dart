@@ -1,8 +1,13 @@
 import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:tera_launcher/components/app_holder.dart';
+import 'package:tera_launcher/settings/MyAppSettings.dart';
+import 'package:tera_launcher/settings/setting_page.dart';
 
 class SearchComponent extends StatelessWidget {
+  final MyAppSettings settings;
+
+  const SearchComponent({Key key, this.settings}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return AppHolder(
@@ -32,6 +37,7 @@ class SearchComponent extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 8.0, bottom: 8),
             child: IconButton(
+              onPressed: ()=> Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SettingPage(settings: settings))),
               icon: Icon(
                 FluentSystemIcons.ic_fluent_settings_regular,
                 color: Colors.white,

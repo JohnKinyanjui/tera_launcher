@@ -8,10 +8,11 @@ import 'package:iconpacks/iconpacks.dart';
 
 class AppItem extends StatefulWidget {
   final ApplicationWithIcon app;
-
+  final Function onpress;
+  final bool textVisible;
   const AppItem({
     Key key,
-    this.app,
+    this.app, this.onpress, this.textVisible,
   }) : super(key: key);
 
   @override
@@ -52,13 +53,13 @@ class _AppItemState extends State<AppItem> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => DeviceApps.openApp(widget.app.packageName),
+      onTap: widget.onpress,
       child: Column(
         children: [
           Expanded(
             child: icon == null
                 ? Container(
-
+              width: 40,
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -74,15 +75,18 @@ class _AppItemState extends State<AppItem> {
           SizedBox(
             height: 10,
           ),
-          Expanded(
-            child: Text(
-              widget.app.appName,
-              style: GoogleFonts.josefinSans(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 10),
-              maxLines: 1,
-              textAlign: TextAlign.center,
+          Visibility(
+            visible: widget.textVisible == null ? true : widget.textVisible,
+            child: Expanded(
+              child: Text(
+                widget.app.appName,
+                style: GoogleFonts.josefinSans(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 10),
+                maxLines: 1,
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
           // Text(app.appName, style: TextStyle(color: Colors.white, fontWeight: FontWeight.w300, fontSize: 10),textAlign: TextAlign.center,)
