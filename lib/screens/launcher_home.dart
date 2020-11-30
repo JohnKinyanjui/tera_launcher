@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tera_launcher/homescreen_widgets/androne_widget.dart';
+import 'package:tera_launcher/homescreen_widgets/androne_widgets/androne_widget.dart';
 
 class LauncherHome extends StatefulWidget {
   @override

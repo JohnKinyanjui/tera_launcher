@@ -43,6 +43,9 @@ dependencies:
   popup_menu: ^1.0.5
   streaming_shared_preferences: ^1.0.1
   font_awesome_flutter: ^8.10.0
+  battery_info: ^1.0.5
+  analog_clock: ^0.0.4
+
 
 
 
