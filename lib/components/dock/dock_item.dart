@@ -1,4 +1,5 @@
 import 'dart:ffi';
+import 'dart:typed_data';
 
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
@@ -6,11 +7,14 @@ import 'package:flutter/services.dart';
 import 'package:iconpacks/iconpacks.dart';
 
 class DockItem extends StatefulWidget {
-
   final ApplicationWithIcon app;
   final Function onpress;
 
-  const DockItem({Key key, this.app, this.onpress,}) : super(key: key);
+  const DockItem({
+    Key key,
+    this.app,
+    this.onpress,
+  }) : super(key: key);
   @override
   _DockItemState createState() => _DockItemState();
 }
@@ -18,7 +22,7 @@ class DockItem extends StatefulWidget {
 class _DockItemState extends State<DockItem> {
   String _platformVersion = 'Unknown';
   String iconPacks = "";
-  Widget icon = null;
+  Uint8List icon = null;
   @override
   void initState() {
     super.initState();
@@ -34,8 +38,8 @@ class _DockItemState extends State<DockItem> {
     }
     List iconPacks = await IconPacks.iconPacks;
 
-    Widget n_icon =
-    await IconPacks.getIcon(widget.app.packageName, iconPacks[0]);
+    Uint8List n_icon =
+        await IconPacks.getRawIcon(widget.app.packageName, iconPacks[0]);
 
     setState(() {
       icon = n_icon;
@@ -50,32 +54,43 @@ class _DockItemState extends State<DockItem> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: widget.onpress,
-      child: Column(
-        children: [
-          Expanded(
-            child: icon == null
-                ? Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: AnimatedContainer(
-                    duration: Duration(milliseconds: 1000),
-              decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
-              child: Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: Image.memory(
-                    widget.app.icon,
+      child: Column(children: [
+        Expanded(
+          child: icon == null
+              ? AnimatedContainer(
+                  height: 50,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  duration: Duration(milliseconds: 1000),
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Image.memory(
+                      widget.app.icon,
+                    ),
                   ),
-              ),
-            ),
                 )
-                : Container(
-              width: 40,
-                child: icon),
-          ),
-           Text("", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w300, fontSize: 10),textAlign: TextAlign.center,)
-        ],
-      ),
+              : AnimatedContainer(
+                  duration: Duration(milliseconds: 1000),
+                  height: 50,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Image.memory(
+                      icon,
+                    ),
+                  ),
+                ),
+        ),
+        Text(
+          "",
+          style: TextStyle(
+              color: Colors.white, fontWeight: FontWeight.w300, fontSize: 10),
+          textAlign: TextAlign.center,
+        )
+      ]),
     );
   }
 }

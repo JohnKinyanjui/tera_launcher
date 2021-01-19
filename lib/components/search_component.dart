@@ -1,8 +1,8 @@
 import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:tera_launcher/components/app_holder.dart';
-import 'package:tera_launcher/settings/MyAppSettings.dart';
-import 'package:tera_launcher/settings/setting_page.dart';
+import 'package:tera_launcher/settings/app_config/MyAppSettings.dart';
+import 'package:tera_launcher/settings/app_config/setting_page.dart';
 
 class SearchComponent extends StatelessWidget {
   final MyAppSettings settings;

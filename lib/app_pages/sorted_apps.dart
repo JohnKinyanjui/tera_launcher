@@ -11,8 +11,8 @@ import 'package:tera_launcher/components/app_category.dart';
 import 'package:tera_launcher/components/app_gridview.dart';
 import 'package:tera_launcher/components/app_holder.dart';
 import 'package:tera_launcher/components/search_component.dart';
-import 'package:tera_launcher/settings/MyAppSettings.dart';
-import 'package:tera_launcher/settings/app_state.dart';
+import 'package:tera_launcher/settings/app_config/MyAppSettings.dart';
+import 'package:tera_launcher/settings/app_config/app_state.dart';
 import 'package:tera_launcher/settings/categories.dart';
 
 class SortedApps extends StatefulWidget {
@@ -29,7 +29,6 @@ class _SortedAppsState extends State<SortedApps> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     controller.dispose();
   }
@@ -48,7 +47,11 @@ class _SortedAppsState extends State<SortedApps> {
                 SizedBox(
                   height: 40,
                 ),
-                SearchComponent(settings: widget.settings,),
+                GestureDetector(
+                    onTap: () => context.refresh(appsProvider.future),
+                    child: SearchComponent(
+                      settings: widget.settings,
+                    )),
                 AppCategory(
                   currentPage: i == null ? 0 : i,
                   onpress: (no) {

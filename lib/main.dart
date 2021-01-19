@@ -1,21 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/all.dart';
+import 'package:infinity_ui/infinity_ui.dart';
 import 'package:streaming_shared_preferences/streaming_shared_preferences.dart';
 import 'package:tera_launcher/main_page.dart';
-import 'package:tera_launcher/settings/MyAppSettings.dart';
+import 'package:tera_launcher/settings/app_config/MyAppSettings.dart';
+import 'package:tera_launcher/settings/handlers/app_handler.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent,
-    systemNavigationBarColor: Colors.transparent.withOpacity(0.01),
-    statusBarBrightness: Brightness.dark,
-    systemNavigationBarDividerColor: Colors.transparent,
-  ));
+  
+  await InfinityUi.enable(); // you can enable it anywhere
+
+  // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+  //   statusBarColor: Colors.transparent,
+  //   systemNavigationBarColor: Colors.transparent.withOpacity(0.01),
+  //   statusBarBrightness: Brightness.dark,
+  //   systemNavigationBarDividerColor: Colors.transparent,
+  // ));
   final preferences = await StreamingSharedPreferences.instance;
   final settings = MyAppSettings(preferences);
-  runApp(MyApp(settings: settings,));
+  runApp(MyApp(
+    settings: settings,
+  ));
 }
 
 class MyApp extends StatelessWidget {

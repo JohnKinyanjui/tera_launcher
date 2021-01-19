@@ -9,11 +9,11 @@ final appsProvider = FutureProvider<List<Application>>(
         ));
 
 final appsProvider1 = FutureProvider<List<ApplicationWithIcon>>(
-        (ref) => DeviceApps.getInstalledApplications(
-      includeAppIcons: true,
-      includeSystemApps: true,
-      onlyAppsWithLaunchIntent: true,
-    ));
+    (ref) => DeviceApps.getInstalledApplications(
+          includeAppIcons: true,
+          includeSystemApps: true,
+          onlyAppsWithLaunchIntent: true,
+        ));
 
 final Stream<List<Application>> st =
     Stream.fromFuture(DeviceApps.getInstalledApplications(
@@ -21,3 +21,9 @@ final Stream<List<Application>> st =
   includeSystemApps: true,
   onlyAppsWithLaunchIntent: true,
 ));
+
+var futureApps = DeviceApps.getInstalledApplications(
+  includeAppIcons: true,
+  includeSystemApps: true,
+  onlyAppsWithLaunchIntent: true,
+);

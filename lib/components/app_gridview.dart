@@ -1,6 +1,8 @@
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:popup_menu/popup_menu.dart';
+import 'package:tera_launcher/anim/fade_transition_alt.dart';
 import 'package:tera_launcher/components/app_item.dart';
 
 class AppGridview extends StatefulWidget {
@@ -27,6 +29,7 @@ class _AppGridviewState extends State<AppGridview> {
   void get_apps() {
     for (int i = 0; i < widget.apps.length; i++) {
       if (widget.apps[i].packageName == "com.android.contacts") {
+        
         social_apps.add(widget.apps[i]);
       } else if (widget.apps[i].appName == "Phone") {
         social_apps.add(widget.apps[i]);
@@ -88,21 +91,25 @@ class _AppGridviewState extends State<AppGridview> {
   Widget build(BuildContext context) {
     GlobalKey btnKey2 = GlobalKey();
 
-    return GridView.builder(
-      cacheExtent: 0,
+    return StaggeredGridView.countBuilder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      gridDelegate:
-          SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4, mainAxisSpacing: 4, crossAxisSpacing: 4),
+      staggeredTileBuilder: (int index) =>
+          new StaggeredTile.count(1, index.isEven ? 1 : 1),
+      mainAxisSpacing: 4.0,
+      crossAxisSpacing: 4.0,
       itemCount: getApplications(widget.appCategory).length,
       itemBuilder: (BuildContext context, int index) {
-        return GestureDetector(
+        return FadeTransitionAlt(
+          curve: Curves.easeIn,
           child: AppItem(
-            onpress: ()=> DeviceApps.openApp(getApplications(widget.appCategory)[index].packageName),
+            onpress: () => DeviceApps.openApp(
+                getApplications(widget.appCategory)[index].packageName),
             app: getApplications(widget.appCategory)[index],
           ),
         );
       },
+      crossAxisCount: 4,
     );
   }
 }

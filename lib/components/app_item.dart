@@ -1,4 +1,5 @@
 import 'dart:ffi';
+import 'dart:typed_data';
 
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
@@ -12,17 +13,19 @@ class AppItem extends StatefulWidget {
   final bool textVisible;
   const AppItem({
     Key key,
-    this.app, this.onpress, this.textVisible,
+    this.app,
+    this.onpress,
+    this.textVisible,
   }) : super(key: key);
 
   @override
   _AppItemState createState() => _AppItemState();
 }
 
-class _AppItemState extends State<AppItem> {
+class _AppItemState extends State<AppItem> with AutomaticKeepAliveClientMixin {
   String _platformVersion = 'Unknown';
   String iconPacks = "";
-  Widget icon = null;
+  Uint8List icon = null;
   @override
   void initState() {
     super.initState();
@@ -38,8 +41,10 @@ class _AppItemState extends State<AppItem> {
     }
     List iconPacks = await IconPacks.iconPacks;
 
-    Widget n_icon =
-        await IconPacks.getIcon(widget.app.packageName, iconPacks[0]);
+    //Use this part to get the list of icon packs
+    print(iconPacks);
+    Uint8List n_icon =
+        await IconPacks.getRawIcon(widget.app.packageName, iconPacks[5]);
 
     setState(() {
       icon = n_icon;
@@ -58,11 +63,12 @@ class _AppItemState extends State<AppItem> {
         children: [
           Expanded(
             child: icon == null
-                ? Container(
-              width: 40,
+                ? AnimatedContainer(
+                    height: 50,
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(10))),
+                    duration: Duration(milliseconds: 1000),
                     child: Padding(
                       padding: const EdgeInsets.all(4.0),
                       child: Image.memory(
@@ -70,7 +76,18 @@ class _AppItemState extends State<AppItem> {
                       ),
                     ),
                   )
-                : icon,
+                : Container(
+                    height: 50,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    child: Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Image.memory(
+                        icon,
+                      ),
+                    ),
+                  ),
           ),
           SizedBox(
             height: 10,
@@ -93,5 +110,19 @@ class _AppItemState extends State<AppItem> {
         ],
       ),
     );
+  }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
+}
+
+class IconContainer extends StatelessWidget {
+  final Uint8List icon;
+
+  const IconContainer({Key key, this.icon}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }
