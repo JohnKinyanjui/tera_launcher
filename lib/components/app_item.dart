@@ -26,10 +26,12 @@ class _AppItemState extends State<AppItem> with AutomaticKeepAliveClientMixin {
   String _platformVersion = 'Unknown';
   String iconPacks = "";
   Uint8List icon = null;
+  Uint8List o_icon = null;
   @override
   void initState() {
     super.initState();
     getIcon();
+    getOriginalIcon();
   }
 
   Future<Void> getIcon() async {
@@ -42,7 +44,6 @@ class _AppItemState extends State<AppItem> with AutomaticKeepAliveClientMixin {
     List iconPacks = await IconPacks.iconPacks;
 
     //Use this part to get the list of icon packs
-    print(iconPacks);
     Uint8List n_icon =
         await IconPacks.getRawIcon(widget.app.packageName, iconPacks[5]);
 
@@ -52,6 +53,12 @@ class _AppItemState extends State<AppItem> with AutomaticKeepAliveClientMixin {
 
     setState(() {
       _platformVersion = platformVersion;
+    });
+  }
+
+  Future<Void> getOriginalIcon() async {
+    setState(() {
+      o_icon = widget.app.icon;
     });
   }
 
@@ -72,7 +79,7 @@ class _AppItemState extends State<AppItem> with AutomaticKeepAliveClientMixin {
                     child: Padding(
                       padding: const EdgeInsets.all(4.0),
                       child: Image.memory(
-                        widget.app.icon,
+                        o_icon,
                       ),
                     ),
                   )

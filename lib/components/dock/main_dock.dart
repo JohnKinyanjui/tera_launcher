@@ -70,6 +70,7 @@ class _MainDockState extends State<MainDock> {
                     0.1,
                     1,
                   ]),
+              borderGradient: null,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,

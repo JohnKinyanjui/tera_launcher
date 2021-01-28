@@ -23,6 +23,7 @@ class SearchComponent extends StatelessWidget {
                 FluentSystemIcons.ic_fluent_search_regular,
                 color: Colors.white,
               ),
+              onPressed: () {},
             ),
           ),
           Padding(
@@ -32,12 +33,14 @@ class SearchComponent extends StatelessWidget {
                 FluentSystemIcons.ic_fluent_store_regular,
                 color: Colors.white,
               ),
+              onPressed: () {},
             ),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 8.0, bottom: 8),
             child: IconButton(
-              onPressed: ()=> Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SettingPage(settings: settings))),
+              onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => SettingPage(settings: settings))),
               icon: Icon(
                 FluentSystemIcons.ic_fluent_settings_regular,
                 color: Colors.white,
